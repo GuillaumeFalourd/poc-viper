@@ -2,6 +2,10 @@
 
 This repository is a POC using [Viper Golang Library](https://github.com/spf13/viper).
 
+References:
+
+- [golang viper tutorial](https://www.youtube.com/watch?v=rU9o3BlLJO8&ab_channel=GeneralistProgrammer)
+
 ## Setup
 
 - Golang installed
