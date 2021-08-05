@@ -1,0 +1,5 @@
+name: Test Yaml
+id: 123
+inputs:
+  - run: ls -lha
+  - run: mkdir new
