@@ -26,8 +26,8 @@ inputs:
 Will return:
 
 ```bash
-Test Yaml
-123
-[map[run:ls -lha] map[run:mkdir new]]
+Test Yaml # name
+123 # id
+[map[run:ls -lha] map[run:mkdir new]] # inputs
 map[id:123 inputs:[map[run:ls -lha] map[run:mkdir new]] name:Test Yaml] # All Settings
 ```
