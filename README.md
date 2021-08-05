@@ -13,7 +13,7 @@ At the repository `root` directory run: `go run ./viper.go`
 
 _Note: This will **read** fields from the `test.yaml` file at the repository `root`._
 
-Example:
+### Example
 
 ```yaml
 name: Test Yaml
