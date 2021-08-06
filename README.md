@@ -13,7 +13,11 @@ References:
 
 ## Usage
 
-This implementation will **read** fields from a `.yaml` file located at the repository `root` according to the following format:
+This implementation will **read** fields from a `.yaml` file located at the repository `root` according to the following format
+
+To set the `*.yaml` to read, update the viper.go line 11: `vi.SetConfigFile("{name}.yaml")`
+
+_The default value for the yaml file is `test-rest.yaml`._
 
 ### For REST API
 
@@ -48,10 +52,6 @@ inputs:
       document: "78901AB"
       email: "abcde@test.com"
 ```
-
-To set the `*.yaml` to read, update the viper.go line 11: `vi.SetConfigFile("{name}.yaml")`
-
-_The default value for the yaml file is `test-rest.yaml`._
 
 ## Run
 
