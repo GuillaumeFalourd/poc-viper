@@ -15,7 +15,7 @@ References:
 
 This implementation will **read** fields from a `.yaml` file located at the repository `root` according to the following format
 
-To set the `*.yaml` to read, update the viper.go line 11: `vi.SetConfigFile("{name}.yaml")`
+To set the `*.yaml` to read, update the [viper.go file](https://github.com/GuillaumeFalourd/poc-viper/blob/main/viper.go), line 11: `vi.SetConfigFile("{name}.yaml")`
 
 _The default value for the yaml file is `test-rest.yaml`._
 
