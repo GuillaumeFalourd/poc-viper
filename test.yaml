@@ -1,5 +1,21 @@
-name: Test Yaml
+name: Test Viper
 id: 123
 inputs:
-  - run: ls -lha
-  - run: mkdir new
+  request1:
+    method: "GET"
+    url: "http://localhost:8000"
+    headers:
+      authorization: "Bearer token"
+      accept: "application/json"
+    body:
+      document: "123456YZ"
+      email: "test@example.com"
+  request2:
+    method: "POST"
+    url: "http://localhost:8000"
+    headers:
+      authorization: "Bearer token"
+      accept: "application/json"
+    body:
+      document: "78901AB"
+      email: "abcde@test.com"
