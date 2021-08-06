@@ -1,0 +1,15 @@
+name: Test Viper REST
+id: 123
+inputs:
+  request:
+    api: REST
+    method: "POST"
+    url: "http://localhost:8080"
+    headers:
+      authorization: "Bearer token"
+      accept: "application/json"
+    body:
+      document: "123456YZ"
+      email: "test@example.com"
+  input2: # eventually
+  input3: # eventually

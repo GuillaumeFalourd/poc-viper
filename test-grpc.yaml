@@ -1,0 +1,12 @@
+name: Test Viper gRPC
+id: 456
+inputs:
+  request:
+    api: gRPC
+    server-address: "http://localhost:9090"
+    service: "LoginRequest"
+    fields:
+      document: "78901AB"
+      email: "abcde@test.com"
+  input2: # eventually
+  input3: # eventually
