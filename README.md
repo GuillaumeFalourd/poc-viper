@@ -10,6 +10,7 @@ References:
 
 - Golang installed
 - Viper library installed: `go get github.com/spf13/viper`
+- An [access-token](https://gorest.co.in/access-token) (free) from [https://gorest.co.in/](https://gorest.co.in/).
 
 ## Usage
 
@@ -28,13 +29,16 @@ inputs:
   request:
     api: REST
     method: "POST"
-    url: "http://localhost:8080"
+    url: "https://gorest.co.in/public/v1/users/"
     headers:  # You can use any custom-fields inside this headers map
-      authorization: "Bearer token"
-      accept: "application/json"
+      Accept: "application/json"
+      Content-Type: "application/json"
+      Authorization: "Bearer {ACCESS-TOKEN}"
     body:  # You can use any custom-fields inside this body map
-      document: "123456YZ"
-      email: "test@example.com"
+      name: "John"
+      gender: "male"
+      email: "john@gmail.com"
+      status: "active"
 ```
 
 ### For gRPC API
@@ -63,9 +67,12 @@ At the repository `root` directory run: `go run ./viper.go`
 Name: Test Viper REST
 Id: 123
 Method: POST
-Url: http://localhost:8080
-Headers: map[accept:application/json authorization:Bearer token]
-Body: map[document:123456YZ email:test@example.com]
+Url: https://gorest.co.in/public/v1/users
+Headers: map[accept:application/json authorization:Bearer {ACCESS-TOKEN} content-type:application/json]
+Body: map[email:guillaume1@gmail.com gender:male name:Guillaume status:active]
+
+StatusCode: ...
+Response: { ... }
 ```
 
 ### For the gRPC API yaml
@@ -76,4 +83,6 @@ Id: 456
 Server Address: http://localhost:9090
 Service: LoginRequest
 Fields: map[document:78901AB email:abcde@test.com]
+
+[TODO]
 ```

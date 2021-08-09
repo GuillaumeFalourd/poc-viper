@@ -1,14 +1,26 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 
 	"github.com/spf13/viper"
 )
 
 func main() {
+	fmt.Println("File to read? (ex: test-rest-get.yaml)")
+
+	// var then variable name then variable type
+	var file string
+
+	// Taking input from user
+	fmt.Scanln(&file)
+
 	vi := viper.New()
-	vi.SetConfigFile("test-rest.yaml")
+	vi.SetConfigFile(file)
 	vi.ReadInConfig()
 
 	// Using https://github.com/spf13/viper#getting-values-from-viper
@@ -25,16 +37,22 @@ func main() {
 		api := vi.Get("inputs.request.api")
 		if api == "REST" {
 			// Extract request parameters
-			method := vi.Get("inputs.request.method")
-			url := vi.Get("inputs.request.url")
-			headers := vi.Get("inputs.request.headers")
-			body := vi.Get("inputs.request.body")
+			method := vi.Get("inputs.request.method").(string)
+			url := vi.Get("inputs.request.url").(string)
+			headers := vi.Get("inputs.request.headers").(map[string]interface{})
+			var body map[string]interface{}
+			if method != "GET" && method != "DELETE" {
+				body = vi.Get("inputs.request.body").(map[string]interface{})
+			}
 
 			// Any Implementation
 			fmt.Println("Method:", method)
 			fmt.Println("Url:", url)
 			fmt.Println("Headers:", headers)
 			fmt.Println("Body:", body)
+
+			// Test method
+			consumeAPI(method, url, headers, body)
 		}
 		if api == "gRPC" {
 			// Extract request parameters
@@ -86,9 +104,12 @@ func validFormat(vi *viper.Viper) bool {
 			fmt.Println("ERROR request format: Headers")
 			return false
 		}
-		if !vi.IsSet("inputs.request.body") {
-			fmt.Println("ERROR request format: Body")
-			return false
+		method := vi.Get("inputs.request.method")
+		if method != "GET" && method != "DELETE" {
+			if !vi.IsSet("inputs.request.body") {
+				fmt.Println("ERROR request format: Body")
+				return false
+			}
 		}
 	}
 
@@ -109,4 +130,41 @@ func validFormat(vi *viper.Viper) bool {
 	}
 
 	return true
+}
+
+func consumeAPI(method string, url string, headers map[string]interface{}, body map[string]interface{}) {
+	client := &http.Client{}
+
+	var jsonStr []byte
+	if len(body) != 0 {
+		j, err := json.Marshal(body)
+		if err != nil {
+			fmt.Printf("Error: %s", err.Error())
+		}
+		jsonStr = j
+	}
+
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonStr))
+	if err != nil {
+		fmt.Print("\nError Request:", err.Error())
+	}
+
+	for k, v := range headers {
+		req.Header.Add(k, v.(string))
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Print("\nError Call:", err.Error())
+	}
+
+	defer resp.Body.Close()
+
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Print("\nError Read:", err.Error())
+	}
+
+	fmt.Println("\nStatusCode:", resp.StatusCode)
+	fmt.Println("Response:", string(bodyBytes))
 }

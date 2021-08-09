@@ -1,0 +1,18 @@
+name: Test Viper REST
+id: 123
+inputs:
+  request:
+    api: REST
+    method: "POST"
+    url: "https://gorest.co.in/public/v1/users"
+    headers:
+      Accept: "application/json"
+      Content-Type: "application/json"
+      Authorization: "Bearer {ACCESS-TOKEN}" # From https://gorest.co.in/access-token
+    body:
+      name: "Guillaume"
+      gender: "male"
+      email: "guillaume1@gmail.com"
+      status: "active"
+  input2: # eventually
+  input3: # eventually
